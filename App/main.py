@@ -10,7 +10,7 @@ def add_space(size, col=None):
     Adds vertical space between two sections.
     """
 
-    (st if not col else col).markdown(
+    (col if col else st).markdown(
         body=f"<div style='margin-top: {size}px'></div>",
         unsafe_allow_html=True
     )
@@ -50,10 +50,9 @@ def show_choropleth_map():
         height=500
     )
 
-    # Add
+    # Add the chart to the view
     _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
     c1.altair_chart(chart, use_container_width=True)
-
     add_space(32, col=c2)
     c2.write("Lorem ipsum dolor sit amet.")
 
