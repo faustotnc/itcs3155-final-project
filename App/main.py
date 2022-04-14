@@ -1,0 +1,65 @@
+import streamlit as st
+import altair as alt
+from vega_datasets import data
+
+st.set_page_config(page_title="UniStats", layout="wide")
+
+
+def add_space(size):
+    """
+    Adds vertical space between two sections.
+    """
+
+    st.markdown(
+        body=f"<div style='margin-top: {size}px'></div>",
+        unsafe_allow_html=True
+    )
+
+
+def show_header():
+    """
+    The function for the header section.
+    """
+
+    _, c1, _ = st.columns([0.75, 2.5, 0.75])
+    c1.title("UniStats Dashboard")
+    c1.write("Empowering Equality in Higher Education.")
+
+
+def show_choropleth_map():
+    """
+    The function for the Choropleth Map section.
+    """
+
+    _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
+    c1.subheader("College Program Enrollment by State and Gender")
+    add_space(24)
+
+    _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
+    counties = alt.topo_feature(data.us_10m.url, 'states')
+    source = data.population_engineers_hurricanes.url
+
+    chart = alt.Chart(counties).mark_geoshape().encode(
+        color='population:Q'
+    ).transform_lookup(
+        lookup='id',
+        from_=alt.LookupData(source, 'id', ['population'])
+    ).project(
+        type='albersUsa'
+    ).properties(
+        width=500,
+        height=500
+    )
+
+    c1.altair_chart(chart, use_container_width=True)
+    c2.write("Lorem ipsum dolor sit amet.")
+
+
+# Show the Header Section
+show_header()
+
+# Add Empty Space
+add_space(64)
+
+# The Choropleth Map
+show_choropleth_map()
