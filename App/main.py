@@ -5,12 +5,12 @@ from vega_datasets import data
 st.set_page_config(page_title="UniStats", layout="wide")
 
 
-def add_space(size):
+def add_space(size, col=None):
     """
     Adds vertical space between two sections.
     """
 
-    st.markdown(
+    (st if not col else col).markdown(
         body=f"<div style='margin-top: {size}px'></div>",
         unsafe_allow_html=True
     )
@@ -35,10 +35,9 @@ def show_choropleth_map():
     c1.subheader("College Program Enrollment by State and Gender")
     add_space(24)
 
-    _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
+    # Create the Choropleth Map Chart
     counties = alt.topo_feature(data.us_10m.url, 'states')
     source = data.population_engineers_hurricanes.url
-
     chart = alt.Chart(counties).mark_geoshape().encode(
         color='population:Q'
     ).transform_lookup(
@@ -51,7 +50,11 @@ def show_choropleth_map():
         height=500
     )
 
+    # Add
+    _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
     c1.altair_chart(chart, use_container_width=True)
+
+    add_space(32, col=c2)
     c2.write("Lorem ipsum dolor sit amet.")
 
 
