@@ -50,11 +50,35 @@ def show_choropleth_map():
         height=500
     )
 
-    # Add the chart to the view
+    # Add the Choropleth Map chart to the view
     _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
     c1.altair_chart(chart, use_container_width=True)
     add_space(32, col=c2)
-    c2.write("Lorem ipsum dolor sit amet.")
+    c2.write("Select Gender")
+
+
+def show_stacked_barchart():
+    _, c3, c4, _ = st.columns([0.75, 2, 0.5, 0.75])
+    c3.subheader("Enrollment by State and Gender")
+    add_space(24)
+
+    source = data.barley()
+    chart = alt.Chart(source).mark_bar().encode(
+        x='sum(yield)',
+        y='variety',
+        color='site',
+        order=alt.Order(
+            # Sort the segments of the bars by this field
+            'site',
+            sort='ascending'
+        )
+    )
+
+    # Add the stacked barchart to the view
+    _, c3, c4, _ = st.columns([0.75, 2, 0.5, 0.75])
+    c3.altair_chart(chart, use_container_width=True)
+    add_space(32, col=c4)
+    c4.write("Description")
 
 
 # Show the Header Section
@@ -65,3 +89,6 @@ add_space(64)
 
 # The Choropleth Map
 show_choropleth_map()
+
+# The Stacked Barchart
+show_stacked_barchart()
