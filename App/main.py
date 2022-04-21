@@ -63,20 +63,35 @@ def show_stacked_barchart():
     add_space(24)
 
     source = data.barley()
+
     chart = alt.Chart(source).mark_bar().encode(
         x='sum(yield)',
         y='variety',
         color='site',
+        tooltip=["variety"],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'site',
             sort='ascending'
-        )
+        ),
     )
+
+    text = alt.Chart(source).mark_text(dx=-15, dy=3, color='white').encode(
+        x=alt.X('sum(yield):Q', stack='zero'),
+        y=alt.Y('variety:N'),
+        detail='site:N',
+        text=alt.Text('sum(yield):Q', format='.1f')
+    )
+
+    # How to combine charts in Altair:
+    # Use the "+" operator to layer charts on top of each other
+    # Use the "&" operator to place charts next to each other vertically
+    # Use the "|" operator to place charts next to each other horizontally
+    combined = chart + text
 
     # Add the stacked barchart to the view
     _, c3, c4, _ = st.columns([0.75, 2, 0.5, 0.75])
-    c3.altair_chart(chart, use_container_width=True)
+    c3.altair_chart(combined, use_container_width=True)
     add_space(32, col=c4)
     c4.write("Description")
 
