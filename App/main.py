@@ -1,8 +1,53 @@
 import streamlit as st
 import altair as alt
 from vega_datasets import data
+import pandas as pd
 
 st.set_page_config(page_title="UniStats", layout="wide")
+
+
+@st.cache
+# This function is cashed so that the data is not
+# reloaded every time the app's state changes.
+def load_data():
+    data = pd.read_csv("./Datasets/Bachelor_Degree_Majors.csv")
+
+    # Convert these columns to integers
+    selection = [
+        "Bachelor's Degree Holders",
+        "Science and Engineering",
+        "Science and Engineering Related Fields",
+        "Business",
+        "Education",
+        "Arts, Humanities and Others"
+    ]
+
+    data[selection] = data[selection].transform(
+        [lambda v: int(v.replace(",", ""))])
+
+    # Remove "Total" rows
+    data = data[data.Sex != "Total"]
+
+    # Append State Ids to the Data
+    ids = pd.read_csv("./Datasets/StateIds.csv")
+    data["StateId"] = [ids[ids.state == s].id.iloc[0] for s in data.State]
+
+    return data
+
+
+DATA = load_data()
+PROGRAMS = ["Science and Engineering", "Science and Engineering Related Fields",
+            "Business", "Education", "Arts, Humanities and Others"]
+
+
+@st.cache
+# This function is cashed so that the data is not
+# re-aggregated every time the app's state changes.
+def group_data_by_sex():
+    return DATA.groupby(["State", "StateId", "Sex"]).sum().reset_index()
+
+
+DATA_BY_SEX = group_data_by_sex()
 
 
 def add_space(size, col=None):
@@ -21,7 +66,7 @@ def show_header():
     The function for the header section.
     """
 
-    _, c1, _ = st.columns([0.75, 2.5, 0.75])
+    _, c1, _ = st.columns([0.5, 3, 0.5])
     c1.title("UniStats Dashboard")
     c1.write("Empowering Equality in Higher Education.")
 
@@ -31,34 +76,40 @@ def show_choropleth_map():
     The function for the Choropleth Map section.
     """
 
-    _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
-    c1.subheader("College Program Enrollment by State and Gender")
+    # The title for this section
+    _, c1, _ = st.columns([0.5, 3, 0.5])
+    c1.subheader("Enrollment by State, Gender, and College Program")
     add_space(24)
 
+    # The columns for the chart and radio buttons
+    _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
+
+    # The radio buttons and data filtering
+    add_space(48, col=c2)
+    gender = c2.radio("Select gender", ('Female', 'Male'))
+    program = c2.radio("Select College Program", PROGRAMS)
+    filtered_data = DATA_BY_SEX[DATA_BY_SEX.Sex == gender]
+
     # Create the Choropleth Map Chart
-    counties = alt.topo_feature(data.us_10m.url, 'states')
-    source = data.population_engineers_hurricanes.url
-    chart = alt.Chart(counties).mark_geoshape().encode(
-        color='population:Q'
+    states_map = alt.topo_feature(data.us_10m.url, 'states')
+    chart = alt.Chart(states_map).mark_geoshape().encode(
+        color=alt.Color(f"{program}:Q", legend=alt.Legend(title="")),
+        tooltip=["State:N", alt.Tooltip(f"{program}:Q", title="Enrollment")],
     ).transform_lookup(
-        lookup='id',
-        from_=alt.LookupData(source, 'id', ['population'])
+        lookup="id",
+        from_=alt.LookupData(filtered_data, 'StateId', ["State", *PROGRAMS])
     ).project(
-        type='albersUsa'
+        type="albersUsa"
     ).properties(
-        width=500,
         height=500
     )
 
     # Add the Choropleth Map chart to the view
-    _, c1, c2, _ = st.columns([0.75, 2, 0.5, 0.75])
     c1.altair_chart(chart, use_container_width=True)
-    add_space(32, col=c2)
-    c2.write("Select Gender")
 
 
 def show_stacked_barchart():
-    _, c3, c4, _ = st.columns([0.75, 2, 0.5, 0.75])
+    _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
     c3.subheader("Enrollment by State and Gender")
     add_space(24)
 
@@ -90,7 +141,7 @@ def show_stacked_barchart():
     combined = chart + text
 
     # Add the stacked barchart to the view
-    _, c3, c4, _ = st.columns([0.75, 2, 0.5, 0.75])
+    _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
     c3.altair_chart(combined, use_container_width=True)
     add_space(32, col=c4)
     c4.write("Description")
