@@ -1,4 +1,3 @@
-from turtle import color
 import streamlit as st
 import altair as alt
 from vega_datasets import data
@@ -186,7 +185,7 @@ def show_stacked_barchart():
     ).properties(
         width=200)
     Art_chart = alt.Chart(source).mark_bar().encode(
-        column=alt.Collum('Sex', color = 'white'),
+        column='Sex', 
         x='sum(Arts, Humanities and Others)',
         y='Age Group',
         color='State',
