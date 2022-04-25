@@ -125,10 +125,9 @@ def show_stacked_barchart():
             # Sort the segments of the bars by this field
             'State',
             sort='ascending'
-        ),
+        ).properties(
+        height=100
     )
-
-    
 
     # How to combine charts in Altair:
     # Use the "+" operator to layer charts on top of each other
