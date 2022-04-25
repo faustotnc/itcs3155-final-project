@@ -141,7 +141,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        width=200)
+        height=100, width=200)
     
     Science_Related_chart = alt.Chart(source).mark_bar().encode(
         column='Sex', 
@@ -155,7 +155,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        width=200)
+        height=100, width=200)
 
     Business_chart = alt.Chart(source).mark_bar().encode(
         column='Sex', 
@@ -169,7 +169,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        width=200)
+        height=100, width=200)
 
     Education_chart = alt.Chart(source).mark_bar().encode(
         column='Sex', 
@@ -183,7 +183,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        width=200)
+        height=100, width=200)
     Art_chart = alt.Chart(source).mark_bar().encode(
         column='Sex', 
         x='sum(Arts, Humanities and Others)',
@@ -196,7 +196,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        width=200)
+        height=100, width=200)
 
 
     # Add the stacked barcharts to the view
