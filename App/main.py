@@ -141,7 +141,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        height=200, width=1200)
+        width=200)
 
     # How to combine charts in Altair:
     # Use the "+" operator to layer charts on top of each other
