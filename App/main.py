@@ -1,4 +1,3 @@
-from sqlite3 import Row
 import streamlit as st
 import altair as alt
 from vega_datasets import data
@@ -131,7 +130,7 @@ def show_stacked_barchart():
         height=200, width=1200)
     
     Science_chart = alt.Chart(source).mark_bar().encode(
-        Row='Sex',
+        column='Sex',
         x='sum(Science and Engineering)',
         y='Age Group',
         color='State',
@@ -142,7 +141,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        height=200)
+        width=200)
 
     # How to combine charts in Altair:
     # Use the "+" operator to layer charts on top of each other
@@ -152,6 +151,7 @@ def show_stacked_barchart():
     # Add the stacked barchart to the view
     _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
     c3.altair_chart(bachelor_chart, use_container_width=True)
+    add_space(32, col=c4)
     c3.altair_chart(Science_chart, use_container_width=True)
     add_space(32, col=c4)
 
