@@ -116,7 +116,7 @@ def show_stacked_barchart():
 
     source = DATA
 
-    chart = alt.Chart(source).mark_bar().encode(
+    bachelor_chart = alt.Chart(source).mark_bar().encode(
         x='sum(Bachelors Degree Holders)',
         y='Sex',
         color='State',
@@ -127,20 +127,33 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        height=300, width=1000)
-
+        height=200, width=1200)
     
+    Science_chart = alt.Chart(source).mark_bar().encode(
+        column='Sex',
+        x='sum(Science and Engineering)',
+        y='Age Group',
+        color='State',
+        tooltip=["State"],  # charts can also have tooltips when users hover
+        order=alt.Order(
+            # Sort the segments of the bars by this field
+            'State',
+            sort='ascending'
+        ),
+    ).properties(
+        height=200, width=1200)
 
     # How to combine charts in Altair:
     # Use the "+" operator to layer charts on top of each other
     # Use the "&" operator to place charts next to each other vertically
     # Use the "|" operator to place charts next to each other horizontally
-   
 
     # Add the stacked barchart to the view
     _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
-    c3.altair_chart(chart, use_container_width=True)
+    c3.altair_chart(bachelor_chart, use_container_width=True)
+    c3.altair_chart(Science_chart, use_container_width=True)
     add_space(32, col=c4)
+
     c4.write("Description")
 
 def show_scatter_plot():
