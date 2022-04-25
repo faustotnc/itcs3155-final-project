@@ -84,7 +84,7 @@ def show_choropleth_map():
 
     # The title for this section
     _, c1, _ = st.columns([0.5, 3, 0.5])
-    c1.subheader("Enrollment by State, Gender, and College Program")
+    c1.subheader("Enrollment by State, Sex, and College Program")
     add_space(24)
 
     # The columns for the chart and radio buttons
@@ -92,9 +92,9 @@ def show_choropleth_map():
 
     # The radio buttons and data filtering
     add_space(48, col=c2)
-    gender = c2.radio("Select gender", ('Female', 'Male'))
+    sex = c2.radio("Select Sex", ('Female', 'Male'))
     program = c2.radio("Select College Program", PROGRAMS)
-    filtered_data = DATA_BY_SEX[DATA_BY_SEX.Sex == gender]
+    filtered_data = DATA_BY_SEX[DATA_BY_SEX.Sex == sex]
 
     # Create the Choropleth Map Chart
     states_map = alt.topo_feature(data.us_10m.url, 'states')
@@ -121,7 +121,7 @@ def show_stacked_barchart():
 
     # The title for this section
     _, _, c2, _ = st.columns([0.5, 2, 2, 0.1])
-    c2.subheader("Enrollment by State and Gender")
+    c2.subheader("Total Enrollment by State & Sex")
     add_space(24)
 
     source = DATA
@@ -209,10 +209,19 @@ def show_stacked_barchart():
     ).interactive().properties(
         height=200, width=1200)
 
-    # Add the bachelor_chart stacked barchart to the view
     _, c1, c2, _ = st.columns([0.5, 1, 2, 0.1])
-    c1.write("Description")
+    c1.write("This stacked barchart displays the varying distribution of Bachelors Degree holders from several different states. "
+             "There are two bars which divide the total number of degree holders by their sex. "
+             "Here we see that the state of California has the largest number of female degree holders, "
+             "by hovering over the chart we can see that there are over 9.7 million females that received "
+             "their degrees in Cali where as only 9.1 million males did the same.")
     c2.altair_chart(bachelor_chart, use_container_width=True)
+    add_space(32)
+
+    # The title for the rest of the bar charts
+    _, c1, _ = st.columns([0.5, 3, 0.5])
+    c1.subheader("Enrollment by State, Sex, & Age (Specific Programs)")
+    add_space(25)
 
     # Add the stacked barcharts to the view
     _, c1, c2, _ = st.columns([0.2, 1, 1, 0.5])
@@ -226,7 +235,7 @@ def show_stacked_barchart():
 def show_scatter_plot():
      # The title for this section
     _, c1, _ = st.columns([0.5, 4, 0.5])
-    c1.subheader("Enrollment by Age, State, Gender, and College Program with Scatter Plot")
+    c1.subheader("Enrollment by Age, State, Sex, and College Program with Scatter Plot")
     add_space(24)
 
     # The columns for the chart and radio buttons
@@ -269,8 +278,10 @@ def show_scatter_plot():
    
     _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
     c1.altair_chart(science_engineering_chart, use_container_width=True)
-    add_space(32, col=c2)
-    c2.write("Description")
+    c2.write(
+         "These scattered plots display the varying distribution of enrollment from different age groups and sexes "
+         "across several different states. "
+         "Each scatter plot depicts information from a different program.")
     c1.altair_chart(science_engineering_related_fields_chart, use_container_width=True)
     add_space(32, col=c2)
     c1.altair_chart(business_chart, use_container_width=True)
