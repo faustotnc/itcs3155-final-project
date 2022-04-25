@@ -120,7 +120,7 @@ def show_stacked_barchart():
         x='sum(Bachelors Degree Holders)',
         y='Sex',
         color='State',
-        tooltip=["State"],  # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Bachelors Degree Holders)'],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -134,7 +134,7 @@ def show_stacked_barchart():
         x='sum(Science and Engineering)',
         y='Age Group',
         color='State',
-        tooltip=["State"],  # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Science and Engineering)'],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -148,7 +148,7 @@ def show_stacked_barchart():
         x='sum(Science and Engineering Related Fields)',
         y='Age Group',
         color='State',
-        tooltip=["State"],  # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Science and Engineering Related Fields)' ],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -162,7 +162,7 @@ def show_stacked_barchart():
         x='sum(Business)',
         y='Age Group',
         color='State',
-        tooltip=["State"],  # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Business)'],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -176,7 +176,7 @@ def show_stacked_barchart():
         x='sum(Education)',
         y='Age Group',
         color='State',
-        tooltip=["State"],  # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Education)'],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -189,7 +189,7 @@ def show_stacked_barchart():
         x='sum(Arts, Humanities and Others)',
         y='Age Group',
         color='State',
-        tooltip=["State"],  # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Arts, Humanities and Others)' ],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
