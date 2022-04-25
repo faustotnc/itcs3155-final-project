@@ -130,77 +130,8 @@ def show_stacked_barchart():
         x='sum(Bachelors Degree Holders)',
         y='Sex',
         color='State',
-        tooltip=["State", 'sum(Bachelors Degree Holders)'],  # charts can also have tooltips when users hover
-        order=alt.Order(
-            # Sort the segments of the bars by this field
-            'State',
-            sort='ascending'
-        ),
-    ).interactive().properties(
-        height=200, width=1200)
-    
-    Science_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex', 
-        x='sum(Science and Engineering)',
-        y='Age Group',
-        color='State',
-        tooltip=["State", 'sum(Science and Engineering)'],  # charts can also have tooltips when users hover
-        order=alt.Order(
-            # Sort the segments of the bars by this field
-            'State',
-            sort='ascending'
-        ),
-    ).interactive().properties(
-        height=200, width=1200)
-    
-    Science_Related_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex', 
-        x='sum(Science and Engineering Related Fields)',
-        y='Age Group',
-        color='State',
-        tooltip=["State", 'sum(Science and Engineering Related Fields)' ],  # charts can also have tooltips when users hover
-        order=alt.Order(
-            # Sort the segments of the bars by this field
-            'State',
-            sort='ascending'
-        ),
-    ).interactive().properties(
-        height=200, width=1200)
-
-    Business_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex', 
-        x='sum(Business)',
-        y='Age Group',
-        color='State',
-        tooltip=["State", 'sum(Business)'],  # charts can also have tooltips when users hover
-        order=alt.Order(
-            # Sort the segments of the bars by this field
-            'State',
-            sort='ascending'
-        ),
-    ).interactive().properties(
-        height=200, width=1200)
-
-    Education_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex', 
-        x='sum(Education)',
-        y='Age Group',
-        color='State',
-        tooltip=["State", 'sum(Education)'],  # charts can also have tooltips when users hover
-        order=alt.Order(
-            # Sort the segments of the bars by this field
-            'State',
-            sort='ascending'
-        ),
-    ).interactive().properties(
-        height=200, width=1200)
-
-    Art_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex', 
-        x='sum(Arts, Humanities and Others)',
-        y='Age Group',
-        color='State',
-        tooltip=["State", 'sum(Arts, Humanities and Others)' ],  # charts can also have tooltips when users hover
+        # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Bachelors Degree Holders)'],
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -221,68 +152,83 @@ def show_stacked_barchart():
     # The title for the rest of the bar charts
     _, c1, _ = st.columns([0.5, 3, 0.5])
     c1.subheader("Enrollment by State, Sex, & Age (Specific Programs)")
+    program = c1.selectbox('Select a Degree Program', PROGRAMS)
     add_space(25)
+
+    selected_chart = alt.Chart(source).mark_bar().encode(
+        column='Sex',
+        x=f'sum({program})',
+        y='Age Group',
+        color='State',
+        # charts can also have tooltips when users hover
+        tooltip=["State", f'sum({program})'],
+        order=alt.Order(
+            # Sort the segments of the bars by this field
+            'State',
+            sort='ascending'
+        ),
+    ).interactive().properties(
+        height=200, width=1200)
 
     # Add the stacked barcharts to the view
     _, c1, c2, _ = st.columns([0.2, 1, 1, 0.5])
-    c1.altair_chart(Science_chart, use_container_width=True)
-    c1.altair_chart(Science_Related_chart, use_container_width=True)
-    c1.altair_chart(Business_chart, use_container_width=True)
-    c1.altair_chart(Education_chart, use_container_width=True)
-    c1.altair_chart(Art_chart, use_container_width=True)
+    c1.altair_chart(selected_chart, use_container_width=True)
     add_space(32, col=c2)
 
+
 def show_scatter_plot():
-     # The title for this section
+    # The title for this section
     _, c1, _ = st.columns([0.5, 4, 0.5])
-    c1.subheader("Enrollment by Age, State, Sex, and College Program with Scatter Plot")
+    c1.subheader(
+        "Enrollment by Age, State, Sex, and College Program with Scatter Plot")
     add_space(24)
 
     # The columns for the chart and radio buttons
     _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
 
     PROGRAMS = ["Science and Engineering", "Science and Engineering Related Fields",
-            "Business", "Education", "Arts, Humanities and Others"]
+                "Business", "Education", "Arts, Humanities and Others"]
 
     source = DATA
     science_engineering_chart = alt.Chart(source).mark_circle(size=60).encode(
         x='Science and Engineering',
         y='Age Group',
-        color= 'Sex',
+        color='Sex',
         tooltip=['State', 'Age Group', 'Sex']
     ).interactive()
     science_engineering_related_fields_chart = alt.Chart(source).mark_circle(size=60).encode(
         x='Science and Engineering Related Fields',
         y='Age Group',
-        color= 'Sex',
+        color='Sex',
         tooltip=['State', 'Age Group', 'Sex']
     ).interactive()
     business_chart = alt.Chart(source).mark_circle(size=60).encode(
         x='Business',
         y='Age Group',
-        color= 'Sex',
+        color='Sex',
         tooltip=['State', 'Age Group', 'Sex']
     ).interactive()
     education_chart = alt.Chart(source).mark_circle(size=60).encode(
         x='Education',
         y='Age Group',
-        color= 'Sex',
+        color='Sex',
         tooltip=['State', 'Age Group', 'Sex']
     ).interactive()
     art_humanities_others_chart = alt.Chart(source).mark_circle(size=60).encode(
         x='Arts, Humanities and Others',
         y='Age Group',
-        color= 'Sex',
+        color='Sex',
         tooltip=['State', 'Age Group', 'Sex']
     ).interactive()
-   
+
     _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
     c1.altair_chart(science_engineering_chart, use_container_width=True)
     c2.write(
-         "These scattered plots display the varying distribution of enrollment from different age groups and sexes "
-         "across several different states. "
-         "Each scatter plot depicts information from a different program.")
-    c1.altair_chart(science_engineering_related_fields_chart, use_container_width=True)
+        "These scattered plots display the varying distribution of enrollment from different age groups and sexes "
+        "across several different states. "
+        "Each scatter plot depicts information from a different program.")
+    c1.altair_chart(science_engineering_related_fields_chart,
+                    use_container_width=True)
     add_space(32, col=c2)
     c1.altair_chart(business_chart, use_container_width=True)
     add_space(32, col=c2)
@@ -290,7 +236,6 @@ def show_scatter_plot():
     add_space(32, col=c2)
     c1.altair_chart(art_humanities_others_chart, use_container_width=True)
     add_space(32, col=c2)
-    
 
 
 # Show the Header Section
