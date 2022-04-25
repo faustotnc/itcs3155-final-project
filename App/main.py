@@ -15,7 +15,7 @@ def load_data():
 
     # Convert these columns to integers
     selection = [
-        "Bachelor's Degree Holders",
+        "Bachelors Degree Holders",
         "Science and Engineering",
         "Science and Engineering Related Fields",
         "Business",
@@ -114,25 +114,25 @@ def show_stacked_barchart():
     c3.subheader("Enrollment by State and Gender")
     add_space(24)
 
-    source = data.barley()
+    source = DATA
 
     chart = alt.Chart(source).mark_bar().encode(
-        x='sum(yield)',
-        y='variety',
-        color='site',
-        tooltip=["variety"],  # charts can also have tooltips when users hover
+        x='sum(Bachelors Degree Holders)',
+        y='Sex',
+        color='State',
+        tooltip=["State"],  # charts can also have tooltips when users hover
         order=alt.Order(
             # Sort the segments of the bars by this field
-            'site',
+            'State',
             sort='ascending'
         ),
     )
 
-    text = alt.Chart(source).mark_text(dx=-15, dy=3, color='white').encode(
-        x=alt.X('sum(yield):Q', stack='zero'),
-        y=alt.Y('variety:N'),
-        detail='site:N',
-        text=alt.Text('sum(yield):Q', format='.1f')
+    text = alt.Chart(source).mark_text(dx=-12, dy=10, color='white').encode(
+        x=alt.X('sum(Bachelors Degree Holders):Q', stack='zero'),
+        y=alt.Y('Sex:N'),
+        detail='State:N',
+        text=alt.Text('sum(Bachelors Degree Holders):Q', format='.1f')
     )
 
     # How to combine charts in Altair:
