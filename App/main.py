@@ -1,3 +1,4 @@
+from turtle import color
 import streamlit as st
 import altair as alt
 from vega_datasets import data
@@ -184,8 +185,8 @@ def show_stacked_barchart():
         ),
     ).properties(
         width=200)
-    Art_chart = alt.Chart(source).mark_bar().mark_text(color='white').encode(
-        column='Sex', 
+    Art_chart = alt.Chart(source).mark_bar().encode(
+        column=alt.Collum('Sex', color = 'white'),
         x='sum(Arts, Humanities and Others)',
         y='Age Group',
         color='State',
@@ -202,17 +203,17 @@ def show_stacked_barchart():
     # Add the stacked barcharts to the view
     _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
     c3.altair_chart(bachelor_chart, use_container_width=True)
-    add_space(32, col=c4)
+    add_space(16, col=c4)
     c3.altair_chart(Science_chart, use_container_width=True)
-    add_space(32, col=c4)
+    add_space(16, col=c4)
     c3.altair_chart(Science_Related_chart, use_container_width=True)
-    add_space(32, col=c4)
+    add_space(16, col=c4)
     c3.altair_chart(Business_chart, use_container_width=True)
-    add_space(32, col=c4)
+    add_space(16, col=c4)
     c3.altair_chart(Education_chart, use_container_width=True)
-    add_space(32, col=c4)
+    add_space(16, col=c4)
     c3.altair_chart(Art_chart, use_container_width=True)
-    add_space(32, col=c4)
+    add_space(16, col=c4)
     c4.write("Description")
 
 def show_scatter_plot():
