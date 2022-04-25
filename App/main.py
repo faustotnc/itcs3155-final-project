@@ -127,7 +127,7 @@ def show_stacked_barchart():
             sort='ascending'
         ),
     ).properties(
-        height=100)
+        height=300)
 
     
 
