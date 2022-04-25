@@ -132,7 +132,7 @@ def show_stacked_barchart():
         x=alt.X('sum(Bachelors Degree Holders):Q', stack='zero'),
         y=alt.Y('Sex:N'),
         detail='State:N',
-        text=alt.Text('sum(Bachelors Degree Holders):Q', format='.1f')
+        text=alt.Text('sum(Bachelors Degree Holders):Q')
     )
 
     # How to combine charts in Altair:
