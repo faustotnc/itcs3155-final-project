@@ -131,7 +131,7 @@ def show_stacked_barchart():
         y='Sex',
         color='State',
         # charts can also have tooltips when users hover
-        tooltip=["State", 'sum(Bachelors Degree Holders)'],
+        tooltip=["State", alt.Tooltip('sum(Bachelors Degree Holders)', title="Degree Holders")],
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -161,7 +161,7 @@ def show_stacked_barchart():
         y='Age Group',
         color='State',
         # charts can also have tooltips when users hover
-        tooltip=["State", f'sum({program})'],
+        tooltip=["State", alt.Tooltip(f'sum({program})', title="Enrolled Students")],
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -185,9 +185,6 @@ def show_scatter_plot():
 
     # The columns for the chart and radio buttons
     _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
-
-    PROGRAMS = ["Science and Engineering", "Science and Engineering Related Fields",
-                "Business", "Education", "Arts, Humanities and Others"]
 
     source = DATA
     science_engineering_chart = alt.Chart(source).mark_circle(size=60).encode(
