@@ -3,6 +3,7 @@ import altair as alt
 from vega_datasets import data
 import pandas as pd
 
+
 st.set_page_config(page_title="UniStats", layout="wide")
 
 
@@ -146,6 +147,69 @@ def show_stacked_barchart():
     add_space(32, col=c4)
     c4.write("Description")
 
+def show_scatter_plot():
+     # The title for this section
+    _, c5, _ = st.columns([0.5, 3, 0.5])
+    c5.subheader("Enrollment by State, Gender, and College Program with Scatter Plot")
+    add_space(24)
+
+    # The columns for the chart and radio buttons
+    _, c5, c6, _ = st.columns([0.5, 2, 1, 0.5])
+
+    PROGRAMS = ["Science and Engineering", "Science and Engineering Related Fields",
+            "Business", "Education", "Arts, Humanities and Others"]
+
+    source = DATA
+    science_engineering_chart = alt.Chart(source).mark_circle(size=60).encode(
+        x='Science and Engineering',
+        y='Age Group',
+        color= 'Sex',
+        tooltip=['State', 'Age Group', 'Sex']
+    ).interactive()
+    science_engineering_related_fields_chart = alt.Chart(source).mark_circle(size=60).encode(
+        x='Science and Engineering Related Fields',
+        y='Age Group',
+        color= 'Sex',
+        tooltip=['State', 'Age Group', 'Sex']
+    ).interactive()
+    business_chart = alt.Chart(source).mark_circle(size=60).encode(
+        x='Business',
+        y='Age Group',
+        color= 'Sex',
+        tooltip=['State', 'Age Group', 'Sex']
+    ).interactive()
+    education_chart = alt.Chart(source).mark_circle(size=60).encode(
+        x='Education',
+        y='Age Group',
+        color= 'Sex',
+        tooltip=['State', 'Age Group', 'Sex']
+    ).interactive()
+    art_humanities_others_chart = alt.Chart(source).mark_circle(size=60).encode(
+        x='Arts, Humanities and Others',
+        y='Age Group',
+        color= 'Sex',
+        tooltip=['State', 'Age Group', 'Sex']
+    ).interactive()
+    # How to combine charts in Altair:
+    # Use the "+" operator to layer charts on top of each other
+    # Use the "&" operator to place charts next to each other vertically
+    # Use the "|" operator to place charts next to each other horizontally
+    
+   
+    _, c5, c6, _ = st.columns([0.5, 2, 1, 0.5])
+    c5.altair_chart(science_engineering_chart, use_container_width=True)
+    add_space(32, col=c6)
+    c6.write("Description")
+    c5.altair_chart(science_engineering_related_fields_chart, use_container_width=True)
+    add_space(32, col=c6)
+    c5.altair_chart(business_chart, use_container_width=True)
+    add_space(32, col=c6)
+    c5.altair_chart(education_chart, use_container_width=True)
+    add_space(32, col=c6)
+    c5.altair_chart(art_humanities_others_chart, use_container_width=True)
+    add_space(32, col=c6)
+    
+
 
 # Show the Header Section
 show_header()
@@ -158,3 +222,6 @@ show_choropleth_map()
 
 # The Stacked Barchart
 show_stacked_barchart()
+
+# The Normalized Stacked Area Chart()
+show_scatter_plot()
