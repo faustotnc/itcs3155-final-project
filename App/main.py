@@ -130,7 +130,7 @@ def show_stacked_barchart():
         height=200, width=1200)
     
     Science_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex',
+        column='Sex', color='white'
         x='sum(Science and Engineering)',
         y='Age Group',
         color='State',
