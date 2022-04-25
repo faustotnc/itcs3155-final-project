@@ -1,3 +1,4 @@
+from sqlite3 import Row
 import streamlit as st
 import altair as alt
 from vega_datasets import data
@@ -130,7 +131,7 @@ def show_stacked_barchart():
         height=200, width=1200)
     
     Science_chart = alt.Chart(source).mark_bar().encode(
-        column='Sex',
+        Row='Sex',
         x='sum(Science and Engineering)',
         y='Age Group',
         color='State',
