@@ -131,7 +131,8 @@ def show_stacked_barchart():
         y='Sex',
         color='State',
         # charts can also have tooltips when users hover
-        tooltip=["State", alt.Tooltip('sum(Bachelors Degree Holders)', title="Degree Holders")],
+        tooltip=["State", alt.Tooltip(
+            'sum(Bachelors Degree Holders)', title="Degree Holders")],
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -161,7 +162,8 @@ def show_stacked_barchart():
         y='Age Group',
         color='State',
         # charts can also have tooltips when users hover
-        tooltip=["State", alt.Tooltip(f'sum({program})', title="Enrolled Students")],
+        tooltip=["State", alt.Tooltip(
+            f'sum({program})', title="Enrolled Students")],
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',
@@ -235,6 +237,16 @@ def show_scatter_plot():
     add_space(32, col=c2)
 
 
+def show_footer_section():
+    _, c1, _ = st.columns([0.5, 3, 0.5])
+    c1.write("---")
+    c1.subheader("UniStats Dashboard")
+    c1.write("Empowering Equality in Higher Education.")
+    add_space(24, col=c1)
+    c1.write("The data used in this project is publicly available at this URL: https://www.kaggle.com/datasets/tjkyner/bachelor-degree-majors-by-age-sex-and-state")
+    c1.write("Visit https://university.graduateshotline.com/ubystate.html to access the contact information of universities in the U.S. by state.")
+
+
 # Show the Header Section
 show_header()
 
@@ -249,3 +261,9 @@ show_stacked_barchart()
 
 # The Normalized Stacked Area Chart()
 show_scatter_plot()
+
+# Add Empty Space
+add_space(64)
+
+# Show the footer section
+show_footer_section()
