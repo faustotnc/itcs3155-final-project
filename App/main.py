@@ -3,6 +3,11 @@ import altair as alt
 from vega_datasets import data
 import pandas as pd
 
+# How to combine charts in Altair:
+# Use the "+" operator to layer charts on top of each other
+# Use the "&" operator to place charts next to each other vertically
+# Use the "|" operator to place charts next to each other horizontally
+
 
 st.set_page_config(page_title="UniStats", layout="wide")
 
@@ -110,8 +115,13 @@ def show_choropleth_map():
 
 
 def show_stacked_barchart():
-    _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
-    c3.subheader("Enrollment by State and Gender")
+    """
+        The function for the Stacked Barchart section.
+    """
+
+    # The title for this section
+    _, _, c2, _ = st.columns([0.5, 2, 2, 0.1])
+    c2.subheader("Enrollment by State and Gender")
     add_space(24)
 
     source = DATA
@@ -198,28 +208,29 @@ def show_stacked_barchart():
         ),
     ).interactive().properties(
         height=200, width=1200)
-    
 
+    # Add the bachelor_chart stacked barchart to the view
+    _, c1, c2, _ = st.columns([0.5, 1, 2, 0.1])
+    c1.write("Description")
+    c2.altair_chart(bachelor_chart, use_container_width=True)
 
     # Add the stacked barcharts to the view
-    _, c3, c4, _ = st.columns([0.5, 2, 1, 0.5])
-    c3.altair_chart(bachelor_chart, use_container_width=True)  
-    c3.altair_chart(Science_chart, use_container_width=True)  
-    c3.altair_chart(Science_Related_chart, use_container_width=True)
-    c3.altair_chart(Business_chart, use_container_width=True) 
-    c3.altair_chart(Education_chart, use_container_width=True)
-    c3.altair_chart(Art_chart, use_container_width=True)
-    add_space(32, col=c4)
-    c4.write("Description")
+    _, c1, c2, _ = st.columns([0.2, 1, 1, 0.5])
+    c1.altair_chart(Science_chart, use_container_width=True)
+    c1.altair_chart(Science_Related_chart, use_container_width=True)
+    c1.altair_chart(Business_chart, use_container_width=True)
+    c1.altair_chart(Education_chart, use_container_width=True)
+    c1.altair_chart(Art_chart, use_container_width=True)
+    add_space(32, col=c2)
 
 def show_scatter_plot():
      # The title for this section
-    _, c5, _ = st.columns([0.5, 3, 0.5])
-    c5.subheader("Enrollment by State, Gender, and College Program with Scatter Plot")
+    _, c1, _ = st.columns([0.5, 4, 0.5])
+    c1.subheader("Enrollment by Age, State, Gender, and College Program with Scatter Plot")
     add_space(24)
 
     # The columns for the chart and radio buttons
-    _, c5, c6, _ = st.columns([0.5, 2, 1, 0.5])
+    _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
 
     PROGRAMS = ["Science and Engineering", "Science and Engineering Related Fields",
             "Business", "Education", "Arts, Humanities and Others"]
@@ -255,24 +266,19 @@ def show_scatter_plot():
         color= 'Sex',
         tooltip=['State', 'Age Group', 'Sex']
     ).interactive()
-    # How to combine charts in Altair:
-    # Use the "+" operator to layer charts on top of each other
-    # Use the "&" operator to place charts next to each other vertically
-    # Use the "|" operator to place charts next to each other horizontally
-    
    
-    _, c5, c6, _ = st.columns([0.5, 2, 1, 0.5])
-    c5.altair_chart(science_engineering_chart, use_container_width=True)
-    add_space(32, col=c6)
-    c6.write("Description")
-    c5.altair_chart(science_engineering_related_fields_chart, use_container_width=True)
-    add_space(32, col=c6)
-    c5.altair_chart(business_chart, use_container_width=True)
-    add_space(32, col=c6)
-    c5.altair_chart(education_chart, use_container_width=True)
-    add_space(32, col=c6)
-    c5.altair_chart(art_humanities_others_chart, use_container_width=True)
-    add_space(32, col=c6)
+    _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
+    c1.altair_chart(science_engineering_chart, use_container_width=True)
+    add_space(32, col=c2)
+    c2.write("Description")
+    c1.altair_chart(science_engineering_related_fields_chart, use_container_width=True)
+    add_space(32, col=c2)
+    c1.altair_chart(business_chart, use_container_width=True)
+    add_space(32, col=c2)
+    c1.altair_chart(education_chart, use_container_width=True)
+    add_space(32, col=c2)
+    c1.altair_chart(art_humanities_others_chart, use_container_width=True)
+    add_space(32, col=c2)
     
 
 
