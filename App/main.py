@@ -129,10 +129,10 @@ def show_stacked_barchart():
     )
 
     text = alt.Chart(source).mark_text(dx=-12, dy=10, color='white').encode(
-        x=alt.X('sum(Bachelors Degree Holders):Q', stack='zero'),
-        y=alt.Y('Sex:N'),
-        detail='State:N',
-        text=alt.Text('sum(Bachelors Degree Holders):Q')
+        x=alt.X('sum(Bachelors Degree Holders)', stack='zero'),
+        y=alt.Y('Sex'),
+        detail='State',
+        text=alt.Text('sum(Bachelors Degree Holders)')
     )
 
     # How to combine charts in Altair:
