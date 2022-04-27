@@ -8,7 +8,6 @@ import pandas as pd
 # Use the "&" operator to place charts next to each other vertically
 # Use the "|" operator to place charts next to each other horizontally
 
-
 st.set_page_config(page_title="UniStats", layout="wide")
 
 
@@ -274,26 +273,26 @@ def show_footer_section():
     c1.write("Visit https://university.graduateshotline.com/ubystate.html to access the contact information of universities in the U.S. by state.")
 
 
-# Show the Header Section
-show_header()
+# Create a page dropdown
+page = st.selectbox("Choose your page", ["Home", "Data", "Resources"])
 
-# Add Empty Space
-add_space(64)
+if page == "Home":
+    # Show the Header Section
+    show_header()
+elif page == "Data":
+    # The Choropleth Map
+    show_choropleth_map()
 
-# The Choropleth Map
-show_choropleth_map()
+    # The Barchart()
+    show_barchart()
 
-# The Barchart()
-show_barchart()
+    # The Stacked Barchart
+    show_stacked_barchart()
 
-# The Stacked Barchart
-show_stacked_barchart()
+    # The Normalized Stacked Area Chart()
+    show_scatter_plot()
+elif page == "Resources":
+    # Show the footer section
+    show_footer_section()
 
-# The Normalized Stacked Area Chart()
-show_scatter_plot()
 
-# Add Empty Space
-add_space(64)
-
-# Show the footer section
-show_footer_section()
