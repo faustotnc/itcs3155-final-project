@@ -22,7 +22,8 @@ def show_barchart(source):
         y='sum(Bachelors Degree Holders)',
         color='Sex',
         # charts can also have tooltips when users hover
-        tooltip=["State", 'sum(Bachelors Degree Holders)']
+        tooltip=["State", alt.Tooltip(
+            'sum(Bachelors Degree Holders)', title="Enrolled Students", format=",")]
     ).interactive().properties(
         height=500
     )
@@ -51,7 +52,7 @@ def show_stacked_barchart(source, program):
         color='State',
         # charts can also have tooltips when users hover
         tooltip=["State", alt.Tooltip(
-            f'sum({program})', title="Enrolled Students")],
+            f'sum({program})', title="Enrolled Students", format=",")],
         order=alt.Order(
             # Sort the segments of the bars by this field
             'State',

@@ -2,7 +2,7 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 from helpers import add_space
-from pages import home, resources, choropleth, scatter_plot, age_group
+from pages import home, resources, choropleth, scatter_plot, college_programs
 
 # How to combine charts in Altair:
 # Use the "+" operator to layer charts on top of each other
@@ -64,7 +64,7 @@ with st.sidebar:
 
     # Create a page dropdown
     page = st.selectbox("Choose your page", [
-                        "Home", "U.S. Map", "Age Groups", "Scatter Plot", "Resources"])
+                        "Home", "U.S. Map", "College Programs", "Scatter Plot", "Resources"])
 
     add_space(32)
     st.write("Our dashboard displays various visualizations that will help you find specific states and college programs that will foster a more "
@@ -73,15 +73,12 @@ with st.sidebar:
 
 
 if page == "Home":
-    # Show the Header Section
     home.display_page()
 elif page == "U.S. Map":
-    # The Choropleth Map
     choropleth.display_page(PROGRAMS, DATA_BY_SEX)
-elif page == "Age Groups":
-    age_group.display_page(DATA, PROGRAMS)
+elif page == "College Programs":
+    college_programs.display_page(DATA, PROGRAMS)
 elif page == "Scatter Plot":
     scatter_plot.display_page(DATA)
 elif page == "Resources":
-    # Show the footer section
     resources.display_page()

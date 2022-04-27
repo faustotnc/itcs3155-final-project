@@ -7,7 +7,7 @@ def display_page():
     The function for the header section.
     """
 
-    _, c1, _ = st.columns([0.5, 3, 0.5])
+    _, c1, _ = st.columns([1, 3, 1])
     c1.title("UniStats Dashboard")
     c1.write("Empowering Equality in Higher Education.")
     add_space(64)
