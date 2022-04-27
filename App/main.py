@@ -113,6 +113,34 @@ def show_choropleth_map():
     # Add the Choropleth Map chart to the view
     c1.altair_chart(chart, use_container_width=True)
 
+def show_barchart():
+    """
+    The function for the barchart section.
+    """
+    source = DATA
+
+    # The title for this section
+    _, c1, _ = st.columns([0.5, 3, 0.5])
+    c1.subheader("Enrollment of Sex by State and College Program")
+    c1.write(
+        "This stacked bar chart displays the number of males and females enrolled in Bachelors Degree programs "
+        "for each state in America. Hovering over a section of a bar displays the specific number of females or males "
+        "that are enrolled in a program for that particular state.")
+
+    # Create the Barchart
+    chart = alt.Chart(source).mark_bar().encode(
+        x='State',
+        y='sum(Bachelors Degree Holders)',
+        color='Sex',
+        # charts can also have tooltips when users hover
+        tooltip=["State", 'sum(Bachelors Degree Holders)']
+    ).interactive().properties(
+        height=500
+    )
+
+    # Add the Choropleth Map chart to the view
+    c1.altair_chart(chart, use_container_width=True)
+
 
 def show_stacked_barchart():
     """
@@ -223,7 +251,7 @@ def show_scatter_plot():
     _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
     c1.altair_chart(science_engineering_chart, use_container_width=True)
     c2.write(
-        "These scattered plots display the varying distribution of enrollment from different age groups and sexes "
+        "These scatter plots display the varying distribution of enrollment from different age groups and sexes "
         "across several different states. "
         "Each scatter plot depicts information from a different program.")
     c1.altair_chart(science_engineering_related_fields_chart,
@@ -235,7 +263,6 @@ def show_scatter_plot():
     add_space(32, col=c2)
     c1.altair_chart(art_humanities_others_chart, use_container_width=True)
     add_space(32, col=c2)
-
 
 def show_footer_section():
     _, c1, _ = st.columns([0.5, 3, 0.5])
@@ -255,6 +282,9 @@ add_space(64)
 
 # The Choropleth Map
 show_choropleth_map()
+
+# The Barchart()
+show_barchart()
 
 # The Stacked Barchart
 show_stacked_barchart()
