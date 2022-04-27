@@ -128,6 +128,7 @@ def show_choropleth_map():
     # Add the Choropleth Map chart to the view
     c1.altair_chart(chart, use_container_width=True)
 
+
 def show_barchart():
     """
     The function for the barchart section.
@@ -282,6 +283,7 @@ def show_scatter_plot():
     c1.altair_chart(art_humanities_others_chart, use_container_width=True)
     add_space(32, col=c2)
 
+
 def show_footer_section():
     _, c1, _ = st.columns([0.5, 3, 0.5])
     c1.write("---")
@@ -289,13 +291,26 @@ def show_footer_section():
     c1.write("Empowering Equality in Higher Education.")
     add_space(25, col=c1)
     c1.write("The data used in this project is publicly available at this URL:")
-    c1.write("https://www.kaggle.com/datasets/tjkyner/bachelor-degree-majors-by-age-sex-and-state")
+    c1.write(
+        "https://www.kaggle.com/datasets/tjkyner/bachelor-degree-majors-by-age-sex-and-state")
     add_space(25, col=c1)
     c1.write("Visit https://university.graduateshotline.com/ubystate.html to access the contact information of universities in the U.S. by state.")
 
 
-# Create a page dropdown
-page = st.selectbox("Choose your page", ["Home", "Data", "Resources"])
+with st.sidebar:
+    st.title("UniStats")
+    st.write("Empowering Equality in Higher Education.")
+
+    add_space(32)
+
+    # Create a page dropdown
+    page = st.selectbox("Choose your page", ["Home", "Data", "Resources"])
+
+    add_space(32)
+    st.write("Our dashboard displays various visualizations that will help you find specific states and college programs that will foster a more "
+             "supportive learning environment. Once you find a state that you would like to move to, there is a link in our resources page that "
+             "will direct you to specific universities that are located in each state. ")
+
 
 if page == "Home":
     # Show the Header Section
@@ -315,5 +330,3 @@ elif page == "Data":
 elif page == "Resources":
     # Show the footer section
     show_footer_section()
-
-
