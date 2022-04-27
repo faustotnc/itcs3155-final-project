@@ -96,6 +96,10 @@ def show_choropleth_map():
     # The title for this section
     _, c1, _ = st.columns([0.5, 3, 0.5])
     c1.subheader("Enrollment by State, Sex, and College Program")
+    c1.write("This map can be filtered by sex and college program. Once you have selected your desired fields, the map will display the concentration of "
+             "male/female enrollment in each state. The lighter the color, the less students enrolled. If the state is a darker blue, "
+             "it means there are many students enrolled. Hovering over the state will show you exactly how many male/female students are enrolled in that state "
+             "for your chosen program.")
     add_space(24)
 
     # The columns for the chart and radio buttons
@@ -149,7 +153,7 @@ def show_barchart():
         height=500
     )
 
-    # Add the Choropleth Map chart to the view
+    # Add the barchart to the view
     c1.altair_chart(chart, use_container_width=True)
 
 
@@ -192,6 +196,8 @@ def show_stacked_barchart():
     # The title for the rest of the bar charts
     _, c1, _ = st.columns([0.5, 3, 0.5])
     c1.subheader("Enrollment by State, Sex, & Age (Specific Programs)")
+    c1.write("This stacked bar chart can be filtered by your desired college program. It displays the number of students enrolled "
+             "in each state for the program you select for both males and females. Each state is split up into four different age groups. ")
     program = c1.selectbox('Select a Degree Program', PROGRAMS)
     add_space(25)
 
@@ -262,9 +268,10 @@ def show_scatter_plot():
     _, c1, c2, _ = st.columns([0.5, 2, 1, 0.5])
     c1.altair_chart(science_engineering_chart, use_container_width=True)
     c2.write(
-        "These scatter plots display the varying distribution of enrollment from different age groups and sexes "
+        "These scatter plots display the varying distributions of enrollment from different age groups and sexes "
         "across several different states. "
-        "Each scatter plot depicts information from a different program.")
+        "Each scatter plot depicts information from a different college program. "
+        "Hovering over each data point displays information about the state, age group, and sex.")
     c1.altair_chart(science_engineering_related_fields_chart,
                     use_container_width=True)
     add_space(32, col=c2)
