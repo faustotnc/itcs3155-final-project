@@ -60,16 +60,19 @@ with st.sidebar:
     st.title("UniStats")
     st.write("Empowering Equality in Higher Education.")
 
-    add_space(32)
+    add_space(25)
 
     # Create a page dropdown
-    page = st.selectbox("Choose your page", [
-                        "Home", "U.S. Map", "College Programs", "Scatter Plot", "Resources"])
+    page = st.selectbox("Choose a page", [
+        "Home", "U.S. Map", "College Programs", "Scatter Plot", "Resources"])
 
-    add_space(32)
-    st.write("Our dashboard displays various visualizations that will help you find specific states and college programs that will foster a more "
-             "supportive learning environment. Once you find a state that you would like to move to, there is a link in our resources page that "
-             "will direct you to specific universities that are located in each state. ")
+    st.caption("The 'U.S. Map' displays male vs. female enrollment for various college programs. ")
+    st.caption("You can explore further in 'College Programs' to see a break down of age groups "
+             "within specific college programs. ")
+    st.caption("The 'Scatter Plot' allows you to see all the college programs at once and the "
+             "distributions of male/female enrollment. ")
+    st.caption("Once you find a state you are interested in, go to 'Resources' and follow the link "
+             "to find a list of specific universities in that state.")
 
 
 if page == "Home":
