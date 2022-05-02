@@ -10,5 +10,5 @@ UniStats is FOR universities and government agencies WHO see potential in differ
 This project uses Streamlit and Altair to build an interactive dashboard. Bellow are the commands to install the required packages:
 - **Streamlit:** `pip install streamlit`
 - **Altair:** `pip install altair`
-Then, run the application by navigating to the base folder (the parent of the “App” folder), and run the following command:
+- Then, run the application by navigating to the base folder (the parent of the “App” folder), and run the following command:
 streamlit run “./App/main.py”
