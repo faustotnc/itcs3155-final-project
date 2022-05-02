@@ -57,8 +57,13 @@ DATA_BY_SEX = group_data_by_sex()
 
 
 with st.sidebar:
-    st.title("UniStats")
-    st.write("Empowering Equality in Higher Education.")
+    st.markdown('''
+        <div style='margin-bottom:24px;text-align:center;'>
+            <span style='font-size:96px;'>👩‍🎓</span>
+            <h1>UniStats Dashboard</h1>
+            <p>Empowering Equality in Higher Education.</p>
+        </div>
+    ''', unsafe_allow_html=True)
 
     add_space(25)
 
@@ -66,13 +71,14 @@ with st.sidebar:
     page = st.selectbox("Choose a page", [
         "Home", "U.S. Map", "College Programs", "Scatter Plot", "Resources"])
 
-    st.caption("The 'U.S. Map' displays male vs. female enrollment for various college programs. ")
+    st.caption(
+        "The 'U.S. Map' displays male vs. female enrollment for various college programs. ")
     st.caption("You can explore further in 'College Programs' to see a break down of age groups "
-             "within specific college programs. ")
+               "within specific college programs. ")
     st.caption("The 'Scatter Plot' allows you to see all the college programs at once and the "
-             "distributions of male/female enrollment. ")
+               "distributions of male/female enrollment. ")
     st.caption("Once you find a state you are interested in, go to 'Resources' and follow the link "
-             "to find a list of specific universities in that state.")
+               "to find a list of specific universities in that state.")
 
 
 if page == "Home":

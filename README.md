@@ -5,3 +5,8 @@ With so many universities in the United States, and so many programs within thos
 UniStats is FOR universities and government agencies WHO see potential in different university programs that need funding. THE UniStats project is a web-based dashboard THAT displays different visualizations about the statistics of college programs in the United States. UNLIKE any other university funding report, OUR product will provide comprehensive and interactive visualizations that will help the users better understand how different programs are spread across the US.
 
 **Primary Data Source**: https://www.kaggle.com/datasets/tjkyner/bachelor-degree-majors-by-age-sex-and-state
+
+## Installation Instructions
+This project uses Streamlit and Altair to build an interactive dashboard. Bellow are the commands to install the required packages:
+- **Streamlit:** `pip install streamlit`
+- **Altair:** `pip install altair`
